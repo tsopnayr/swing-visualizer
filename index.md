@@ -1699,8 +1699,8 @@
             for (var i = 1, row; row = bidenVotesTable.rows[i]; i++) {
                 bidenVotesTable.rows[i].style.backgroundColor = "white";
                 bidenVotesTable.rows[i].innerHTML = countyBidenVotes[i];
-                if (countyMargins[i] < 0) {
-                    if (trueMargins[i] > 0) {
+                if (parseFloat(countyMargins[i]) < 0) {
+                    if (parseFloat(trueMargins[i]) > 0) {
                         bidenVotesTable.rows[i].style.backgroundColor = "darkblue";
                     }
                     else {
@@ -1712,8 +1712,8 @@
             for (var i = 1, row; row = trumpVotesTable.rows[i]; i++) {
                 trumpVotesTable.rows[i].style.backgroundColor = "white";
                 trumpVotesTable.rows[i].innerHTML = countyTrumpVotes[i];
-                if (countyMargins[i] > 0) {
-                    if (trueMargins[i] < 0) {
+                if (parseFloat(countyMargins[i]) > 0) {
+                    if (parseFloat(trueMargins[i]) < 0) {
                         trumpVotesTable.rows[i].style.backgroundColor = "darkred";
                     }
                     else {
