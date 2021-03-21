@@ -1700,7 +1700,12 @@
                 bidenVotesTable.rows[i].style.backgroundColor = "white";
                 bidenVotesTable.rows[i].innerHTML = countyBidenVotes[i];
                 if (countyMargins[i] < 0) {
-                    bidenVotesTable.rows[i].style.backgroundColor = "lightblue";
+                    if (trueMargins[i] > 0) {
+                        bidenVotesTable.rows[i].style.backgroundColor = "darkblue";
+                    }
+                    else {
+                        bidenVotesTable.rows[i].style.backgroundColor = "lightblue";
+                    }
                 }
             }
             var trumpVotesTable = document.getElementById("trumpVotes");
@@ -1708,7 +1713,13 @@
                 trumpVotesTable.rows[i].style.backgroundColor = "white";
                 trumpVotesTable.rows[i].innerHTML = countyTrumpVotes[i];
                 if (countyMargins[i] > 0) {
-                    trumpVotesTable.rows[i].style.backgroundColor = "lightcoral";
+                    if (trueMargins[i] < 0) {
+                        trumpVotesTable.rows[i].style.backgroundColor = "darkred";
+                    }
+                    else {
+                        trumpVotesTable.rows[i].style.backgroundColor = "lightcoral";
+                    }
+                    
                 }
             }
             var totalBidenVotes = 0;
