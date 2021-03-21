@@ -1703,7 +1703,7 @@
                     if (parseFloat(trueMargins[i]) > 0) {
                         bidenVotesTable.rows[i].style.backgroundColor = "darkblue";
                     }
-                    else {
+                    else if (parseFloat(trueMargins[i]) < 0) {
                         bidenVotesTable.rows[i].style.backgroundColor = "lightblue";
                     }
                 }
@@ -1716,7 +1716,7 @@
                     if (parseFloat(trueMargins[i]) < 0) {
                         trumpVotesTable.rows[i].style.backgroundColor = "darkred";
                     }
-                    else {
+                    else if (parseFloat(trueMargins[i]) > 0) {
                         trumpVotesTable.rows[i].style.backgroundColor = "lightcoral";
                     }
                     
