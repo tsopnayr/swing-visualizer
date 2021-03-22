@@ -397,15 +397,25 @@
         </table>
         </div>
 
-        <div>
-            <div style="display: inline-block; margin-left: 2.5vw; border: 1px solid black;">
-                <div style="margin: 1vw">
-                    <h1 style="display: inline;">Adjusted State Totals</h1>
-                    <p style="display: block;" id="stateBidenVotes"></p>
-                    <p style="display: block;" id="stateTrumpVotes"></p>
+        <div style="display: block; align-content: center;">
+
+                <div style="display: inline-block; border: 1px solid black;">
+                    <div style="margin: 1vw">
+                        <h1 style="display: inline;">Adjusted State Totals</h1>
+                        <p style="display: block;" id="stateBidenVotes"></p>
+                        <p style="display: block;" id="stateTrumpVotes"></p>
+                    </div>
                 </div>
-            </div>
-            <div style="display: inline">
+                <br/>
+                <div style="display: inline-block; border: 1px solid black; margin-bottom: 1vw;">
+                    <div style="margin:1vw">
+                        <h1 style ="display:inline;">County Information</h1>
+                        <p style="display:block;"><i>displays county info on mouseover!</i></p>
+                        <p style="display: block;" id="countyNameMouseover"></p>
+                    </div>
+                    </div>
+
+            <div style="display: block;">
                 
 
 <svg
@@ -418,13 +428,13 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    viewBox="-13347,-36535 57464,65388"
    id="svg2178"
-   height="50%"
-   width="50%"
+   height="40%"
+   width="35%"
    sodipodi:version="0.32"
    inkscape:version="0.48.5 r10040"
    sodipodi:docname="Map_of_Minnesota_counties_blank.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   style="margin-left: -12vw; margin-top: -15vw; margin-bottom: -12vw;">
+   style="">
   <metadata
      id="metadata2285">
     <rdf:RDF>
