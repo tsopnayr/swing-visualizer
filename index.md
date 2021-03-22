@@ -1701,10 +1701,10 @@
                 bidenVotesTable.rows[i].innerHTML = countyBidenVotes[i];
                 if (parseFloat(countyMargins[i]) < 0) {
                     if (parseFloat(trueMargins[i]) > 0) {
-                        bidenVotesTable.rows[i].style.backgroundColor = "lightblue";
+                        bidenVotesTable.rows[i].style.backgroundColor = "darkblue";
                     }
                     else if (parseFloat(trueMargins[i]) < 0) {
-                        bidenVotesTable.rows[i].style.backgroundColor = "darkblue";
+                        bidenVotesTable.rows[i].style.backgroundColor = "lightblue";
                     }
                 }
             }
@@ -1714,10 +1714,10 @@
                 trumpVotesTable.rows[i].innerHTML = countyTrumpVotes[i];
                 if (parseFloat(countyMargins[i]) > 0) {
                     if (parseFloat(trueMargins[i]) < 0) {
-                        trumpVotesTable.rows[i].style.backgroundColor = "lightcoral";
+                        trumpVotesTable.rows[i].style.backgroundColor = "darkred";
                     }
                     else if (parseFloat(trueMargins[i]) > 0) {
-                        trumpVotesTable.rows[i].style.backgroundColor = "darkred";
+                        trumpVotesTable.rows[i].style.backgroundColor = "lightcoral";
                     }
                     
                 }
