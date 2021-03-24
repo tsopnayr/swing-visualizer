@@ -13,26 +13,32 @@
         </style>
     </head>
     <body>
-        <h1>2020 Election Swing Calculator and Visualization<i> v.1</i></h1>
-        <p><i>Only featuring data for Minnesota, for now!</i></p>
-        <p><b><u>Rural Threshold 0-100%</u></b></p>
-        <p><i>Any county with a percent rural population greater than or equal to the entered value will be considered rural for use in calculations.</i></p>
-        <input id="ruralThreshEntry" type="number" min=0 max=100 placeholder="rural threshold" step=0.1><p style="display: inline;">%</p>
-        <p><b><u>Urban Threshold 0-100%</u></b></p>
-        <p><i>Calculated from rural threshold entry (above).</i></p>
-        <p id="outputUrbanThresh"></p>
+        <div style="display: block;">
+            <h1>2020 Election Swing Calculator and Visualization<i> v.1</i></h1>
+            <p><i>Only featuring data for Minnesota, for now!</i></p>
+            <p><b><u>Rural Threshold 0-100%</u></b></p>
+            <p><i>Any county with a percent rural population greater than or equal to the entered value will be considered rural for use in calculations.</i></p>
+            <input id="ruralThreshEntry" type="number" min=0 max=100 placeholder="rural threshold" step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
+            <p><b><u>Urban Threshold 0-100%</u></b></p>
+            <p><i>Calculated from rural threshold entry (above).</i></p>
+            <p id="outputUrbanThresh"></p>
 
-        <div>
-            <p><b><u>Rural Swing (- for D swing)</u></b></p>
-            <input id="ruralSwingEntry" type="number" min=-100 max=100 placeholder="rural swing" size=40 step=0.1><p style="display: inline;">%</p>
-            <p><b><u>Urban Swing (- for D swing)</u></b></p>
-            <input id="urbanSwingEntry" type="number" min=-100 max=100 placeholder = "urban swing" size=40 step=0.1><p style="display: inline;">%</p>
-            <div style="padding-top: 20px; padding-bottom: 20px">
-                <button style="width: 200; font-size: 20px;" id="buttonSwingEntry" onclick = "entriesAndCalculations();">Calculate!</button>
+            <div>
+                <p><b><u>Rural Swing (- for D swing)</u></b></p>
+                <input id="ruralSwingEntry" type="number" min=-100 max=100 placeholder="rural swing" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
+                <p><b><u>Urban Swing (- for D swing)</u></b></p>
+                <input id="urbanSwingEntry" type="number" min=-100 max=100 placeholder = "urban swing" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
+                <p><b><u>Rural Turnout (+/- 2020 levels)</u></b></p>
+                <input id="ruralTurnoutEntry" type="number" min=-100 max=100 placeholder = "rural turnout" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
+                <p><b><u>Urban Turnout (+/- 2020 levels)</u></b></p>
+                <input id="urbanTurnoutEntry" type="number" min=-100 max=100 placeholder = "urban turnout" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
+                <div style="padding-top: 20px; padding-bottom: 20px">
+                    <button style="width: 200; font-size: 20px;" id="buttonSwingEntry" onclick = "entriesAndCalculations();">Calculate!</button>
+                </div>
             </div>
         </div>
         
-        <div style="display: inline; float: left;">
+        <div style="display: block; float: left;">
             <table style="display: inline;" id="counties">
             <thead><tr><th>County</th></tr></thead>
             <tbody style="text-align:center;">
@@ -401,8 +407,8 @@
         </table>
         </div>
 
-
-                <div style="display: inline-block; border: 1px solid black;">
+            <div style="display:block;">
+                <div style="display: inline-block; border: 1px solid black; margin-left: 1vw;">
                     <div style="margin: 1vw">
                         <h1 style="display: inline;">Adjusted State Totals</h1>
                         <p style="display: block;" id="stateBidenVotes"></p>
@@ -410,7 +416,7 @@
                     </div>
                 </div>
                 <br/>
-                <div style="display: inline-block; border: 1px solid black; margin-bottom: 1vw;">
+                <div style="display: inline-block; border: 1px solid black; margin-bottom: 1vw; margin-left: 1vw;">
                     <div style="margin:1vw">
                         <h1 style ="display:inline;">County Information</h1>
                         <p style="display:block;"><i>displays county info on mouseover!</i></p>
@@ -420,6 +426,7 @@
                         <p style="display: block;" id="countyTrumpVotesMouseover"></p>
                     </div>
                     </div>
+            </div>
 
             <div style="display: block;">
                 
@@ -931,8 +938,8 @@
     </body>
     <script>
         function entriesAndCalculations() {
-            var userRuralThreshold = document.getElementById("ruralThreshEntry").value;
-            var calculatedUrbanThreshold = userRuralThreshold;
+            var userRuralThreshold = document.getElementById("ruralThreshEntry").value; //calculate counties that are considered rural
+            var calculatedUrbanThreshold = userRuralThreshold; //calculate counties that are considered urban
             document.getElementById("outputUrbanThresh").innerHTML = "All counties less than " + calculatedUrbanThreshold + "% rural are considered urban.";
             
             countyBidenVotes = [
@@ -1657,101 +1664,118 @@
               "Yellow_Medicine"
             ];
             
+            var userRuralTurnout = document.getElementById("ruralTurnoutEntry").value;
+            var userUrbanTurnout = document.getElementById("urbanTurnoutEntry").value;
+
             var marginsTable = document.getElementById("margins");
-            //for (var i = 1, row; row = marginsTable.rows[i]; i++) {
-                //var margin = (countyTrumpVotes[i] / countyTotalVotes[i])*100 - (countyBidenVotes[i] / countyTotalVotes[i])*100;
-                //marginsTable.rows[i].innerHTML = (margin).toFixed(2) + "%";
-            //}
+
             var userRuralSwing = document.getElementById("ruralSwingEntry").value;
             var userUrbanSwing = document.getElementById("urbanSwingEntry").value;
             for (var i = 1, row; row = marginsTable.rows[i]; i++) {
-                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) { //isRural
+                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) { //county isRural, add swing
                     countyMargins[i] = (parseFloat(countyMargins[i])*100 + parseFloat(userRuralSwing)).toFixed(2);
                 }
-                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) {
+                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) { //count isUrban, add swing
                     countyMargins[i] = (parseFloat(countyMargins[i])*100 + parseFloat(userUrbanSwing)).toFixed(2);
                 }
-                marginsTable.rows[i].innerHTML = countyMargins[i];
+                marginsTable.rows[i].innerHTML = countyMargins[i]; //display county margins on html table
             }
             var countyTable = document.getElementById("counties");
             for (var i = 1, row; row = marginsTable.rows[i]; i++) {
-                countyTable.rows[i].innerHTML = countyNames[i];
+                countyTable.rows[i].innerHTML = countyNames[i]; //display county names on html table
             }
+
+            for (var i = 1; i < countyTotalVotes.length; i++) {
+                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) { //isRural, increase total votes
+                    countyTotalVotes[i] = parseInt(countyTotalVotes[i]) * (1.0 + parseFloat(userRuralTurnout)/100);
+                }
+                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) { //isUrban, increase total votes
+                    countyTotalVotes[i] = parseInt(countyTotalVotes[i]) * (1.0 + parseFloat(userUrbanTurnout)/100);
+                }
+            }
+
             var countyBidenPercent;
             var adjustedBidenMargin;
             var adjustedBidenVotes;
             for (var i = 1; i < countyBidenVotes.length; i++) {
-                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) {
+                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) { //isRural, calculate biden votes
+                    countyBidenVotes[i] = parseFloat(countyBidenVotes[i]) * (1.0 + parseFloat(userRuralTurnout)/100);
                     countyBidenPercent = parseFloat(countyBidenVotes[i]) / parseFloat(countyTotalVotes[i]);
                     adjustedBidenMargin = parseFloat(countyBidenPercent)*100 - parseFloat(userRuralSwing)/2;
                     adjustedBidenVotes = parseFloat(adjustedBidenMargin)/100 * parseFloat(countyTotalVotes[i]);
                     countyBidenVotes[i] = adjustedBidenVotes.toFixed(0);
+                    
                 }
-                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) {
+                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) { //isUrban, calculate biden votes
+                    countyBidenVotes[i] = parseFloat(countyBidenVotes[i]) * (1.0 + parseFloat(userUrbanTurnout)/100);
                     countyBidenPercent = parseFloat(countyBidenVotes[i]) / parseFloat(countyTotalVotes[i]);
                     adjustedBidenMargin = parseFloat(countyBidenPercent)*100 - parseFloat(userUrbanSwing)/2;
                     adjustedBidenVotes = parseFloat(adjustedBidenMargin)/100 * parseFloat(countyTotalVotes[i]);
                     countyBidenVotes[i] = adjustedBidenVotes.toFixed(0);
+                    
                 }
             }
             var countyTrumpPercent;
             var adjustedTrumpMargin;
             var adjustedTrumpVotes;
             for (var i = 1; i < countyTrumpVotes.length; i++) {
-                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) {
-                    countyTrumpPercent = parseFloat(countyTrumpVotes[i]) / parseFloat(countyTotalVotes[i]);
-                    adjustedTrumpMargin = parseFloat(countyTrumpPercent)*100 + parseFloat(userRuralSwing)/2;
-                    adjustedTrumpVotes = parseFloat(adjustedTrumpMargin)/100 * parseFloat(countyTotalVotes[i]);
-                    countyTrumpVotes[i] = adjustedTrumpVotes.toFixed(0);
+                if (parseFloat(countyRuralPercents[i]) >= userRuralThreshold) { //isRural, calculate trump votes
+                        countyTrumpVotes[i] = parseFloat(countyTrumpVotes[i]) * (1.0 + parseFloat(userRuralTurnout)/100);
+                        countyTrumpPercent = parseFloat(countyTrumpVotes[i]) / parseFloat(countyTotalVotes[i]);
+                        adjustedTrumpMargin = parseFloat(countyTrumpPercent)*100 + parseFloat(userRuralSwing)/2;
+                        adjustedTrumpVotes = parseFloat(adjustedTrumpMargin)/100 * parseFloat(countyTotalVotes[i]);
+                        countyTrumpVotes[i] = adjustedTrumpVotes.toFixed(0);
+                    
                 }
-                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) {
-                    countyTrumpPercent = parseFloat(countyTrumpVotes[i]) / parseFloat(countyTotalVotes[i]);
-                    adjustedTrumpMargin = parseFloat(countyTrumpPercent)*100 + parseFloat(userUrbanSwing)/2;
-                    adjustedTrumpVotes = parseFloat(adjustedTrumpMargin)/100 * parseFloat(countyTotalVotes[i]);
-                    countyTrumpVotes[i] = adjustedTrumpVotes.toFixed(0);
+                else if (parseFloat(countyRuralPercents[i]) < userRuralThreshold) { //isUrban, calculate trump votes
+                        countyTrumpVotes[i] = parseFloat(countyTrumpVotes[i]) * (1.0 + parseFloat(userUrbanTurnout)/100);
+                        countyTrumpPercent = parseFloat(countyTrumpVotes[i]) / parseFloat(countyTotalVotes[i]);
+                        adjustedTrumpMargin = parseFloat(countyTrumpPercent)*100 + parseFloat(userUrbanSwing)/2;
+                        adjustedTrumpVotes = parseFloat(adjustedTrumpMargin)/100 * parseFloat(countyTotalVotes[i]);
+                        countyTrumpVotes[i] = adjustedTrumpVotes.toFixed(0);
                 }
             }
             var bidenVotesTable = document.getElementById("bidenVotes");
             for (var i = 1, row; row = bidenVotesTable.rows[i]; i++) {
-                bidenVotesTable.rows[i].style.backgroundColor = "white";
+                bidenVotesTable.rows[i].style.backgroundColor = "white"; //reset styles (+ next line)
                 bidenVotesTable.rows[i].style.color = "black";
-                bidenVotesTable.rows[i].innerHTML = countyBidenVotes[i];
+                bidenVotesTable.rows[i].innerHTML = countyBidenVotes[i]; //display county biden votes in html table
                 if (parseFloat(countyMargins[i]) < 0) {
                     if (parseFloat(trueMargins[i]) > 0) {
-                        bidenVotesTable.rows[i].style.backgroundColor = "darkblue";
+                        bidenVotesTable.rows[i].style.backgroundColor = "darkblue"; //style for flip
                         bidenVotesTable.rows[i].style.color = "white";
                     }
                     else if (parseFloat(trueMargins[i]) < 0) {
-                        bidenVotesTable.rows[i].style.backgroundColor = "lightblue";
+                        bidenVotesTable.rows[i].style.backgroundColor = "lightblue"; //style for no flip, D
                     }
                 }
             }
             var trumpVotesTable = document.getElementById("trumpVotes");
             for (var i = 1, row; row = trumpVotesTable.rows[i]; i++) {
-                trumpVotesTable.rows[i].style.backgroundColor = "white";
+                trumpVotesTable.rows[i].style.backgroundColor = "white"; //reset styles
                 trumpVotesTable.rows[i].style.color = "black";
-                trumpVotesTable.rows[i].innerHTML = countyTrumpVotes[i];
+                trumpVotesTable.rows[i].innerHTML = countyTrumpVotes[i]; //display county trump votes in html table
                 if (parseFloat(countyMargins[i]) > 0) {
                     if (parseFloat(trueMargins[i]) < 0) {
-                        trumpVotesTable.rows[i].style.backgroundColor = "darkred";
+                        trumpVotesTable.rows[i].style.backgroundColor = "darkred"; //style for flip
                         trumpVotesTable.rows[i].style.color = "white";
                     }
                     else if (parseFloat(trueMargins[i]) > 0) {
-                        trumpVotesTable.rows[i].style.backgroundColor = "lightcoral";
+                        trumpVotesTable.rows[i].style.backgroundColor = "lightcoral"; //style for no flip, R
                     }
                     
                 }
             }
             var totalBidenVotes = 0;
-            for (var i = 1; i < countyBidenVotes.length; i++) {
+            for (var i = 1; i < countyBidenVotes.length; i++) { //sum state biden votes
                 totalBidenVotes = totalBidenVotes + parseFloat(countyBidenVotes[i]);
             }
             var totalTrumpVotes = 0;
-            for (var i = 1; i < countyTrumpVotes.length; i++) {
+            for (var i = 1; i < countyTrumpVotes.length; i++) { //sum state trump votes
                 totalTrumpVotes = totalTrumpVotes + parseFloat(countyTrumpVotes[i]);
             }
             var totalStateVotes = 0;
-            for (var i = 1; i <countyTotalVotes.length; i++) {
+            for (var i = 1; i <countyTotalVotes.length; i++) { //sum state total votes
                 totalStateVotes = totalStateVotes + parseFloat(countyTotalVotes[i]);
             }
             var stateBidenPercent = (totalBidenVotes / totalStateVotes * 100).toFixed(2);
@@ -1761,8 +1785,11 @@
             var trueTrumpVotes = 1484065;
             var trueTrumpPercent = 45.28;
             
-            var rawTrumpDifference = parseInt(totalTrumpVotes) - parseInt(trueTrumpVotes);
-            var rawBidenDifference = parseInt(totalBidenVotes) - parseInt(trueBidenVotes);
+            var rawTrumpDifference = parseInt(totalTrumpVotes) - parseInt(trueTrumpVotes); //raw votes trump difference
+            var rawBidenDifference = parseInt(totalBidenVotes) - parseInt(trueBidenVotes); //raw votes biden difference
+
+            var trumpPercentDifference = (parseFloat(stateTrumpPercent) - parseFloat(trueTrumpPercent)).toFixed(2);
+            var bidenPercentDifference = (parseFloat(stateBidenPercent) - parseFloat(trueBidenPercent)).toFixed(2);
             
             document.getElementById("stateTrumpVotes").style.backgroundColor = "white";
             document.getElementById("stateBidenVotes").style.backgroundColor = "white";
@@ -1781,18 +1808,52 @@
             }
             
             if (rawTrumpDifference >= 0) {
-                document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(+" + rawTrumpDifference + " votes)";
+                if (trumpPercentDifference > 0) {
+                    document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(+" + rawTrumpDifference + " votes) " + " (+" + trumpPercentDifference + "%)";
+                }
+                else if (trumpPercentDifference < 0) {
+                    document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(+" + rawTrumpDifference + " votes) " + " (" + trumpPercentDifference + "%)";
+                }
+                else {
+                    document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(+" + rawTrumpDifference + " votes) " + " (+" + trumpPercentDifference + "%)";
+                }
+                
             }
             else {
-                document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(" + rawTrumpDifference + " votes)";
+                if (trumpPercentDifference > 0) {
+                    document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(" + rawTrumpDifference + " votes) " + " (+" + trumpPercentDifference + "%)";
+                }
+                else if (trumpPercentDifference < 0) {
+                    document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(" + rawTrumpDifference + " votes) " + " (" + trumpPercentDifference + "%)";
+                }
+                else {
+                    document.getElementById("stateTrumpVotes").innerHTML = "Trump: " + totalTrumpVotes + " votes (" + stateTrumpPercent + "%) " + "(" + rawTrumpDifference + " votes) " + " (+" + trumpPercentDifference + "%)";
+                }
             }
             
             if (rawBidenDifference >= 0) {
-                document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(+" + rawBidenDifference + " votes)";
+                if (bidenPercentDifference > 0) {
+                    document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(+" + rawBidenDifference + " votes) " + " (+" + bidenPercentDifference + "%)";
+                }
+                else if (bidenPercentDifference < 0) {
+                    document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(+" + rawBidenDifference + " votes) " + " (" + bidenPercentDifference + "%)";
+                }
+                else {
+                    document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(+" + rawBidenDifference + " votes) " + " (+" + bidenPercentDifference + "%)";
+                }
             }
             else {
-                document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(" + rawBidenDifference + " votes)";
+                if (bidenPercentDifference > 0) {
+                    document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(" + rawBidenDifference + " votes) " + " (+" + bidenPercentDifference + "%)";
+                }
+                else if (bidenPercentDifference < 0) {
+                    document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(" + rawBidenDifference + " votes) " + " (" + bidenPercentDifference + "%)";
+                }
+                else {
+                    document.getElementById("stateBidenVotes").innerHTML = "Biden: " + totalBidenVotes + " votes (" + stateBidenPercent + "%) " + "(" + rawBidenDifference + " votes) " + " (+" + bidenPercentDifference + "%)";
+                }
             }
+
             for (var i = 1; i < countyNamesForColor.length; i++) {
                 if (parseFloat(countyMargins[i]) > 0) {
                     if (parseFloat(trueMargins[i]) < 0 && parseFloat(countyMargins[i]) > 0) {
@@ -1823,9 +1884,14 @@
 
             
             function InfoBox(userCountyEntry) {
+                document.getElementById("countyNameMouseover").style.color = "black";
+                document.getElementById("countyNameMouseover").style.backgroundColor = "white";
+
                 var marginForDisplay = countyMargins[countyNamesForColor.indexOf(userCountyEntry)];
                 var bidenVotesForDisplay = countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)];
                 var trumpVotesForDisplay = countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)];
+                var dPercentForDisplay = countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)] / countyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)] * 100;
+                var rPercentForDisplay = countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)] / countyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)] * 100;
 
                 if (marginForDisplay > 0) {
                     document.getElementById("countyMarginMouseover").innerHTML = "+" + marginForDisplay + "% R";
@@ -1833,8 +1899,8 @@
                 else if (marginForDisplay < 0) {
                     document.getElementById("countyMarginMouseover").innerHTML = "+" + Math.abs(marginForDisplay) + "% D";
                 }
-                document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes";
-                document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes";
+                document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes (" + dPercentForDisplay.toFixed(2) + "%)";
+                document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes (" + rPercentForDisplay.toFixed(2) + "%)";
                 
 
                 if (userCountyEntry == "Big_Stone") {
@@ -1874,6 +1940,20 @@
                     document.getElementById("countyNameMouseover").innerHTML = (userCountyEntry) + " County";
                 }
 
+                if (marginForDisplay > 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] < 0) {
+                    document.getElementById("countyNameMouseover").style.backgroundColor = "darkred";
+                    document.getElementById("countyNameMouseover").style.color = "white";
+                }
+                else if (marginForDisplay > 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] > 0) {
+                    document.getElementById("countyNameMouseover").style.backgroundColor = "lightcoral";
+                }
+                else if (marginForDisplay < 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] > 0 ) {
+                    document.getElementById("countyNameMouseover").style.backgroundColor = "darkblue";
+                    document.getElementById("countyNameMouseover").style.color = "white";
+                }
+                else if (marginForDisplay < 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] < 0) {
+                    document.getElementById("countyNameMouseover").style.backgroundColor = "lightblue";
+                }
                 
             }
             entriesAndCalculations.InfoBox = InfoBox;
