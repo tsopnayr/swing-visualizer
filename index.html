@@ -5,430 +5,53 @@
         <title>Swing Calculator and Visualizer</title>
         <style>
             #ruralThreshEntry {
-                width: 10em;
+                width: 10%;
             }
             path:hover {
                 fill: white !important;
             }
+            h1, p, td, tr {
+                font-family: Helvetica;
+            }
         </style>
     </head>
     <body>
-        <div style="display: block;">
-            <h1>2020 Election Swing Calculator and Visualization<i> v.1</i></h1>
-            <p><i>Only featuring data for Minnesota, for now!</i></p>
-            <p><b><u>Rural Threshold 0-100%</u></b></p>
-            <p><i>Any county with a percent rural population greater than or equal to the entered value will be considered rural for use in calculations.</i></p>
-            <input id="ruralThreshEntry" type="number" min=0 max=100 placeholder="rural threshold" step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
-            <p><b><u>Urban Threshold 0-100%</u></b></p>
-            <p><i>Calculated from rural threshold entry (above).</i></p>
-            <p id="outputUrbanThresh"></p>
-
-            <div>
-                <p><b><u>Rural Swing (- for D swing)</u></b></p>
-                <input id="ruralSwingEntry" type="number" min=-100 max=100 placeholder="rural swing" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
-                <p><b><u>Urban Swing (- for D swing)</u></b></p>
-                <input id="urbanSwingEntry" type="number" min=-100 max=100 placeholder = "urban swing" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
-                <p><b><u>Rural Turnout (+/- 2020 levels)</u></b></p>
-                <input id="ruralTurnoutEntry" type="number" min=-100 max=100 placeholder = "rural turnout" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
-                <p><b><u>Urban Turnout (+/- 2020 levels)</u></b></p>
-                <input id="urbanTurnoutEntry" type="number" min=-100 max=100 placeholder = "urban turnout" size=40 step=0.1 onfocusout="entriesAndCalculations();"><p style="display: inline;">%</p>
-                <div style="padding-top: 20px; padding-bottom: 20px">
-                    <button style="width: 200; font-size: 20px;" id="buttonSwingEntry" onclick = "entriesAndCalculations();">Calculate!</button>
+        <h1 style="margin-bottom: 0;">Election Swing Calculator and Visualizer</h1>
+        <p style="margin-top: 0;">Created by Ryan Post <a href="https://twitter.com/ryansmaps" target="_blank">(@ryansmaps)</a></p>
+        <div style="display: inline-block; border: 1px solid black; vertical-align: top;">
+            <div style="display: inline-block; margin-left: 1%;">
+                <div style="display:inline-block; margin-top: 1%;">
+                    <p style="display: inline; font-family: Helvetica;">RURAL/URBAN THRESHOLD</p>
+                    <input id="ruralThreshEntry" type="number" onfocusout="entriesAndCalculations();" style="display: block; font-size: 125%; width: 42.5%;">
+                    <p style="display: block; font-size: 75%;"><i>A county with a percentage rural population greater than or equal to the threshold will be considered rural.</i></p>
+                    <p style="display: block; font-size: 75%;"><i>A county with a percentage rural population less than the threshold will be considered urban.</i></p>
+                </div>
+            </div>
+            <br>
+            <div style="display: inline-block; margin-top: 1%; margin-left: 1%;">
+                <div style="display:inline-block;">
+                    <p style="display: inline; font-family: Helvetica;">RURAL SWING</p>
+                    <input id="ruralSwingEntry" type="number" onfocusout="entriesAndCalculations();" style="display: block; font-size: 125%; width: 42.5%;">
+                </div>
+                <div style="display:inline-block;">
+                    <p style="display: inline; font-family: Helvetica;">URBAN SWING</p>
+                    <input id="urbanSwingEntry" type="number" onfocusout="entriesAndCalculations();" style="display: block; font-size: 125%; width: 42.5%;">
+                </div>
+            </div>
+            <br>
+            <div style="display: inline-block; padding-top: 2.5%; margin-left: 1%;">
+                <div style="display:inline-block; margin-bottom: 2.5%;">
+                    <p style="display: inline; font-family: Helvetica;">RURAL TURNOUT (+/- '20)</p>
+                    <input id="ruralTurnoutEntry" type="number" onfocusout="entriesAndCalculations();" style="display: block; font-size: 125%; width: 42.5%;">
+                </div>
+                <div style="display:inline-block;">
+                    <p style="display: inline; font-family: Helvetica;">URBAN TURNOUT (+/- '20)</p>
+                    <input id="urbanTurnoutEntry" type="number" onfocusout="entriesAndCalculations();" style="display: block; font-size: 125%; width: 42.5%;">
                 </div>
             </div>
         </div>
         
-        <div style="display: block; float: left;">
-            <table style="display: inline;" id="counties">
-            <thead><tr><th>County</th></tr></thead>
-            <tbody style="text-align:center;">
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-            </tbody>
-        </table>
-            <table style="display: inline;" id="margins">
-            <thead><tr><th>Margin (R-D)</th></tr></thead>
-            <tbody style="text-align: center;">
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-            </tbody>
-        </table>
-            <table style="display: inline;" id="bidenVotes"><thead><tr><th>Biden votes</th></tr></thead>
-            <tbody style="text-align: center;">
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-            </tbody>
-        </table>
-            <table style="display: inline;" id="trumpVotes"><thead><tr><th>Trump votes</th></tr></thead>
-            <tbody style="text-align: center;">
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-                 <tr><td></td></tr>
-            </tbody>
-        </table>
-        </div>
-
-            <div style="display:block;">
-                <div style="display: inline-block; border: 1px solid black; margin-left: 1vw;">
-                    <div style="margin: 1vw">
-                        <h1 style="display: inline;">Adjusted State Totals</h1>
-                        <p style="display: block;" id="stateBidenVotes"></p>
-                        <p style="display: block;" id="stateTrumpVotes"></p>
-                    </div>
-                </div>
-                <br/>
-                <div style="display: inline-block; border: 1px solid black; margin-bottom: 1vw; margin-left: 1vw;">
-                    <div style="margin:1vw">
-                        <h1 style ="display:inline;">County Information</h1>
-                        <p style="display:block;"><i>displays county info on mouseover!</i></p>
-                        <p style="display: block;" id="countyNameMouseover"></p>
-                        <p style="display: block;" id="countyMarginMouseover"></p>
-                        <p style="display: block;" id="countyBidenVotesMouseover"></p>
-                        <p style="display: block;" id="countyTrumpVotesMouseover"></p>
-                    </div>
-                    </div>
-            </div>
-
-            <div style="display: block;">
+            <div style="display: inline-block;">
                 
 
 <svg
@@ -447,7 +70,7 @@
    inkscape:version="0.48.5 r10040"
    sodipodi:docname="Map_of_Minnesota_counties_blank.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   style="">
+   style="margin: 0;">
   <metadata
      id="metadata2285">
     <rdf:RDF>
@@ -934,14 +557,493 @@
 
 
             </div>
+            <br>
+            <div style="display: inline-block; vertical-align: top;">
+                <div style="display: inline-block; border: 1px solid black; vertical-align: top;">
+                    <div style="margin: 5%">
+                        <h1 style="display: inline; font-size: 150%;">Adjusted State Totals</h1>
+                        <p style="display: block;" id="stateBidenVotes"></p>
+                        <p style="display: block;" id="stateTrumpVotes"></p>
+                    </div>
+                </div>
+                <div style="display: inline-block; border: 1px solid black;">
+                    <div style="margin: 5%">
+                        <h1 style ="display:inline; font-size: 150%;">County Information</h1>
+                        <p style="display:block;"><i>displays county info on mouseover!</i></p>
+                        <p style="display: block;" id="countyNameMouseover"></p>
+                        <p style="display: block;" id="countyMarginMouseover"></p>
+                        <p style="display: block;" id="countyBidenVotesMouseover"></p>
+                        <p style="display: block;" id="countyTrumpVotesMouseover"></p>
+                    </div>
+                    </div>
+            </div>
+        <br>
+        
+        <div style="display: block; float: left;">
+            <table style="display: inline;" id="counties">
+            <thead><tr><th>County</th></tr></thead>
+            <tbody style="text-align:center;">
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+            </tbody>
+        </table>
+            <table style="display: inline;" id="margins">
+            <thead><tr><th>Margin (R-D)</th></tr></thead>
+            <tbody style="text-align: center;">
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+            </tbody>
+        </table>
+            <table style="display: inline;" id="bidenVotes"><thead><tr><th>Biden votes</th></tr></thead>
+            <tbody style="text-align: center;">
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+            </tbody>
+        </table>
+            <table style="display: inline;" id="trumpVotes"><thead><tr><th>Trump votes</th></tr></thead>
+            <tbody style="text-align: center;">
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+                 <tr><td></td></tr>
+            </tbody>
+        </table>
+        </div>
             
     </body>
     <script>
         function entriesAndCalculations() {
             var userRuralThreshold = document.getElementById("ruralThreshEntry").value; //calculate counties that are considered rural
-            var calculatedUrbanThreshold = userRuralThreshold; //calculate counties that are considered urban
-            document.getElementById("outputUrbanThresh").innerHTML = "All counties less than " + calculatedUrbanThreshold + "% rural are considered urban.";
             
+            trueCountyBidenVotes = [
+              ["placeholder"],
+              [3607],
+              [100893],
+              [6589],
+              [11426],
+              [7280],
+              [1053],
+              [18330],
+              [4753],
+              [10098],
+              [30774],
+              [6342],
+              [2226],
+              [11806],
+              [16357],
+              [1260],
+              [2496],
+              [1834],
+              [13726],
+              [146155],
+              [4079],
+              [7868],
+              [2531],
+              [4551],
+              [6889],
+              [11806],
+              [1300],
+              [532623],
+              [4853],
+              [4462],
+              [7138],
+              [10786],
+              [1745],
+              [2774],
+              [8440],
+              [1006],
+              [2659],
+              [1446],
+              [3647],
+              [671],
+              [5672],
+              [937],
+              [4634],
+              [6413],
+              [1112],
+              [1295],
+              [3305],
+              [3867],
+              [4404],
+              [4367],
+              [8899],
+              [1449],
+              [9622],
+              [2933],
+              [1404],
+              [49491],
+              [11958],
+              [2568],
+              [5419],
+              [1306],
+              [5439],
+              [2477],
+              [211620],
+              [691],
+              [2355],
+              [2496],
+              [17402],
+              [1556],
+              [2188],
+              [67704],
+              [40040],
+              [18065],
+              [2417],
+              [31879],
+              [7917],
+              [1922],
+              [1784],
+              [3286],
+              [661],
+              [4696],
+              [2023],
+              [3496],
+              [89165],
+              [1987],
+              [1026],
+              [13333],
+              [28430],
+              [1688]
+            ];
+
             countyBidenVotes = [
               ["placeholder"],
               [3607],
@@ -1032,6 +1134,96 @@
               [28430],
               [1688]
             ];
+            trueCountyTrumpVotes = [
+              ["placeholder"],
+              [6258],
+              [104902],
+              [12438],
+              [12188],
+              [14382],
+              [1863],
+              [16731],
+              [9552],
+              [9791],
+              [34009],
+              [11620],
+              [4250],
+              [21916],
+              [15043],
+              [3372],
+              [1203],
+              [4165],
+              [25676],
+              [109638],
+              [7783],
+              [15799],
+              [5191],
+              [7301],
+              [9578],
+              [16052],
+              [2269],
+              [205973],
+              [6334],
+              [8202],
+              [16491],
+              [15239],
+              [3948],
+              [6278],
+              [14437],
+              [1546],
+              [4131],
+              [2528],
+              [3393],
+              [1704],
+              [10775],
+              [2121],
+              [7979],
+              [13986],
+              [1142],
+              [3721],
+              [7480],
+              [9359],
+              [9952],
+              [14821],
+              [10025],
+              [3363],
+              [9018],
+              [5600],
+              [1953],
+              [39692],
+              [23800],
+              [4532],
+              [10256],
+              [3553],
+              [9865],
+              [4417],
+              [77376],
+              [1454],
+              [5771],
+              [5467],
+              [17464],
+              [3583],
+              [6065],
+              [49017],
+              [45872],
+              [36222],
+              [5864],
+              [50959],
+              [12656],
+              [3044],
+              [3316],
+              [9753],
+              [1172],
+              [8153],
+              [5520],
+              [6624],
+              [73764],
+              [3103],
+              [2328],
+              [13227],
+              [51973],
+              [3734]
+            ];
             countyTrumpVotes = [
               ["placeholder"],
               [6258],
@@ -1121,6 +1313,96 @@
               [13227],
               [51973],
               [3734]
+            ];
+            trueCountyTotalVotes = [
+              ["placeholder"],
+              [10025],
+              [211132],
+              [19401],
+              [24189],
+              [22260],
+              [2974],
+              [36051],
+              [14635],
+              [20369],
+              [66361],
+              [18289],
+              [6611],
+              [34570],
+              [32239],
+              [4708],
+              [3806],
+              [6107],
+              [40173],
+              [262259],
+              [12187],
+              [24165],
+              [7914],
+              [12141],
+              [16818],
+              [28636],
+              [3654],
+              [755969],
+              [11440],
+              [12965],
+              [24235],
+              [26561],
+              [5819],
+              [9242],
+              [23367],
+              [2639],
+              [6922],
+              [4040],
+              [7202],
+              [2408],
+              [16818],
+              [3115],
+              [12893],
+              [20933],
+              [2304],
+              [5113],
+              [11009],
+              [13529],
+              [14689],
+              [19558],
+              [19345],
+              [4896],
+              [19125],
+              [8715],
+              [3441],
+              [91385],
+              [36399],
+              [7277],
+              [16001],
+              [4940],
+              [15594],
+              [7022],
+              [295977],
+              [2196],
+              [8284],
+              [8128],
+              [35686],
+              [5240],
+              [8421],
+              [119531],
+              [87965],
+              [55612],
+              [8452],
+              [84835],
+              [21128],
+              [5085],
+              [5193],
+              [13257],
+              [1864],
+              [13123],
+              [7677],
+              [10389],
+              [166786],
+              [5201],
+              [3430],
+              [27173],
+              [82426],
+              [5528]
             ];
             countyTotalVotes = [
               ["placeholder"],
@@ -1886,12 +2168,25 @@
             function InfoBox(userCountyEntry) {
                 document.getElementById("countyNameMouseover").style.color = "black";
                 document.getElementById("countyNameMouseover").style.backgroundColor = "white";
+                bidenVoteChange = 0;
+                trumpVoteChange = 0;
 
                 var marginForDisplay = countyMargins[countyNamesForColor.indexOf(userCountyEntry)];
                 var bidenVotesForDisplay = countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)];
                 var trumpVotesForDisplay = countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)];
                 var dPercentForDisplay = countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)] / countyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)] * 100;
                 var rPercentForDisplay = countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)] / countyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)] * 100;
+                var bidenVoteChange = countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)] - trueCountyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)];
+                var trumpVoteChange = countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)] - trueCountyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)];
+
+                var countyBidenPercent = parseFloat(countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)]) / parseFloat(countyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)]);
+                var trueCountyBidenPercent = parseFloat(trueCountyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)]) / parseFloat(trueCountyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)]);
+
+                var countyTrumpPercent = parseFloat(countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)]) / parseFloat(countyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)]);
+                var trueCountyTrumpPercent = parseFloat(trueCountyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)]) / parseFloat(trueCountyTotalVotes[countyNamesForColor.indexOf(userCountyEntry)]);
+
+                var countyBidenPercentDiff = (countyBidenPercent - trueCountyBidenPercent) * 100;
+                var countyTrumpPercentDiff = (countyTrumpPercent - trueCountyTrumpPercent) * 100;
 
                 if (marginForDisplay > 0) {
                     document.getElementById("countyMarginMouseover").innerHTML = "+" + marginForDisplay + "% R";
@@ -1899,9 +2194,40 @@
                 else if (marginForDisplay < 0) {
                     document.getElementById("countyMarginMouseover").innerHTML = "+" + Math.abs(marginForDisplay) + "% D";
                 }
-                document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes (" + dPercentForDisplay.toFixed(2) + "%)";
-                document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes (" + rPercentForDisplay.toFixed(2) + "%)";
-                
+
+                if (bidenVoteChange >= 0) {
+                    if (countyBidenPercentDiff > 0) {
+                        document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes (" + dPercentForDisplay.toFixed(2) + "%) (+" + bidenVoteChange + " votes)" + " (+" + countyBidenPercentDiff.toFixed(2) + "%)";
+                    }
+                    else {
+                        document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes (" + dPercentForDisplay.toFixed(2) + "%) (+" + bidenVoteChange + " votes)" + " (" + countyBidenPercentDiff.toFixed(2) + "%)";
+                    }
+                }
+                else {
+                    if (countyBidenPercentDiff > 0) {
+                        document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes (" + dPercentForDisplay.toFixed(2) + "%) (" + bidenVoteChange + " votes)" + " (+" + countyBidenPercentDiff.toFixed(2) + "%)";
+                    }
+                    else {
+                        document.getElementById("countyBidenVotesMouseover").innerHTML = "Biden: " + bidenVotesForDisplay + " votes (" + dPercentForDisplay.toFixed(2) + "%) (" + bidenVoteChange + " votes)" + " (" + countyBidenPercentDiff.toFixed(2) + "%)";
+                    }
+                }
+
+                if (trumpVoteChange >= 0) {
+                    if (countyTrumpPercentDiff > 0) {
+                        document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes (" + rPercentForDisplay.toFixed(2) + "%) (+" + trumpVoteChange + " votes)" + " (+" + countyTrumpPercentDiff.toFixed(2) + "%)";
+                    }
+                    else {
+                        document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes (" + rPercentForDisplay.toFixed(2) + "%) (+" + trumpVoteChange + " votes)" + " (" + countyTrumpPercentDiff.toFixed(2) + "%)";
+                    }
+                }
+                else {
+                    if (countyTrumpPercentDiff > 0) {
+                        document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes (" + rPercentForDisplay.toFixed(2) + "%) (" + trumpVoteChange + " votes)" + " (+" + countyTrumpPercentDiff.toFixed(2) + "%)";
+                    }
+                    else {
+                        document.getElementById("countyTrumpVotesMouseover").innerHTML = "Trump: " + trumpVotesForDisplay + " votes (" + rPercentForDisplay.toFixed(2) + "%) (" + trumpVoteChange + " votes)" + " (" + countyTrumpPercentDiff.toFixed(2) + "%)";
+                    }
+                }
 
                 if (userCountyEntry == "Big_Stone") {
                     document.getElementById("countyNameMouseover").innerHTML = "Big Stone County";
