@@ -2268,46 +2268,6 @@
                 else {
                     document.getElementById("countyNameMouseover").innerHTML = (userCountyEntry) + " County";
                 }
-
-                if (marginForDisplay > 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] < 0) {
-                    document.getElementById("countyNameMouseover").style.backgroundColor = "darkred";
-                    document.getElementById("countyNameMouseover").style.color = "white";
-                }
-                else if (marginForDisplay > 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] > 0) {
-                    document.getElementById("countyNameMouseover").style.backgroundColor = "lightcoral";
-                }
-                else if (marginForDisplay < 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] > 0 ) {
-                    document.getElementById("countyNameMouseover").style.backgroundColor = "darkblue";
-                    document.getElementById("countyNameMouseover").style.color = "white";
-                }
-                else if (marginForDisplay < 0 && trueMargins[countyNamesForColor.indexOf(userCountyEntry)] < 0) {
-                    document.getElementById("countyNameMouseover").style.backgroundColor = "lightblue";
-                }
-                else if (marginForDisplay == 0) {
-                    document.getElementById("countyNameMouseover").style.backgroundColor = "grey";
-                }
-
-                if (countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)] > countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)]) {
-                    if (trueCountyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)] > trueCountyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)]) {
-                        document.getElementById("countyNameMouseover").style.backgroundColor = "darkblue";
-                        document.getElementById("countyNameMouseover").style.color = "white";
-                    }
-                    else {
-                        document.getElementById("countyNameMouseover").style.backgroundColor = "lightblue";
-                    }
-                }
-                else if (countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)] > countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)]) {
-                    if (trueCountyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)] > trueCountyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)]) {
-                        document.getElementById("countyNameMouseover").style.backgroundColor = "darkred";
-                        document.getElementById("countyNameMouseover").style.color = "white";
-                    }
-                    else {
-                        document.getElementById("countyNameMouseover").style.backgroundColor = "lightcoral";
-                    }
-                }
-                else {
-                    document.getElementById("countyNameMouseover").style.backgroundColor = "grey";
-                }
                 
             }
             entriesAndCalculations.InfoBox = InfoBox;
