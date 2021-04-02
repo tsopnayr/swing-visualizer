@@ -2268,6 +2268,28 @@
                 else {
                     document.getElementById("countyNameMouseover").innerHTML = (userCountyEntry) + " County";
                 }
+
+                if (parseFloat(countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)]) > parseFloat(countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)])) {
+                  if (parseFloat(trueCountyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)]) > parseFloat(trueCountyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)])) { // republican flip color
+                      document.getElementById("countyNameMouseover").style.backgroundColor = "darkred";
+                      document.getElementById("countyNameMouseover").style.color = "white";
+                  }
+                  else {
+                      document.getElementById("countyNameMouseover").style.backgroundColor = "lightcoral";
+                  }
+              }
+              else if (parseFloat(countyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)]) > parseFloat(countyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)])) {
+                  if (parseFloat(trueCountyTrumpVotes[countyNamesForColor.indexOf(userCountyEntry)]) > parseFloat(trueCountyBidenVotes[countyNamesForColor.indexOf(userCountyEntry)])) {//democratic map color
+                      document.getElementById("countyNameMouseover").style.backgroundColor = "darkblue";
+                      document.getElementById("countyNameMouseover").style.color = "white";
+                  }
+                  else {
+                      document.getElementById("countyNameMouseover").style.backgroundColor = "lightblue";
+                  }
+              }
+              else {
+                  document.getElementById("countyNameMouseover").style.backgroundColor = "grey";
+              }
                 
             }
             entriesAndCalculations.InfoBox = InfoBox;
