@@ -189,9 +189,9 @@
                         <h1 style ="display:inline; font-size: 150%;">District Information</h1>
                         <p style="display:block;"><i>displays district info on mouseover!</i></p>
                         <p style="display: block;" id="districtNameMouseover"></p>
-                        <p style="display: block;" id="districtMarginMouseover"></p>
                         <p style="display: block;" id="districtRVotesMouseover"></p>
                         <p style="display: block;" id="districtDVotesMouseover"></p>
+                        <p style="display: block; font-style: italic; font-size: 75%;" id="districtMarginMouseover"></p>
                     </div>
                     </div>
             </div>
@@ -667,6 +667,8 @@
             document.getElementById("districtNameMouseover").innerHTML = districtNameForDisplay[districtNameFromMouseover.indexOf(userDistrictEntry)];
             
 
+            //below section displays rural percents for districts
+            document.getElementById("districtMarginMouseover").innerHTML = (districtRuralPercents[districtNameFromMouseover.indexOf(userDistrictEntry)]).toFixed(2) + "% rural";
             //below section displays candidate names and votes in district infobox
             document.getElementById("districtRVotesMouseover").innerHTML = rCandidatesNames[districtNameFromMouseover.indexOf(userDistrictEntry)] + " (R): " + districtRVotes[districtNameFromMouseover.indexOf(userDistrictEntry)] + " votes";
             document.getElementById("districtDVotesMouseover").innerHTML = dCandidatesNames[districtNameFromMouseover.indexOf(userDistrictEntry)] + " (D): " + districtDVotes[districtNameFromMouseover.indexOf(userDistrictEntry)] + " votes";
